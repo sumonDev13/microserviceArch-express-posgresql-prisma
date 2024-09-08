@@ -11,8 +11,12 @@ const register = async (req,res,next) => {
         const user = await prisma.user.create({
           data: payload,
         });
+
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+            expiresIn: "365d",
+          });
   
-        return res.json({ message: "Account created successfully!", user });
+        return res.json({ message: "Account created successfully!", user,token });
       } catch (error) {
         return res
           .status(500)
