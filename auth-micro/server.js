@@ -2,6 +2,7 @@ import express from "express";
 import { config } from "dotenv";
 import cors from "cors";
 import authRouter from "./routes/authRoutes.js";
+import userRoute from "./routes/userRoutes.js";
 
 config();
 const app = express();
@@ -16,7 +17,8 @@ app.get('/',(req, res) =>{
     return res.JSON({message:`Yea we are running`})
 });
 
-app.use('/users',authRouter)
+app.use('/auth',authRouter);
+app.use('/users',userRoute);
 
 app.listen(PORT,()=>{
     console.log(`Server listening on ${PORT}`)
